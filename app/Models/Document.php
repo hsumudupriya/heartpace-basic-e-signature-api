@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use Creagia\LaravelSignPad\Concerns\RequiresSignature;
+use Creagia\LaravelSignPad\Contracts\CanBeSigned;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Document extends Model
+class Document extends Model implements CanBeSigned
 {
-    use HasFactory;
+    use HasFactory, RequiresSignature;
 
     // Constants for signature statuses.
     const SIGNATURE_NOT_NECESSARY = 'Not necessary';

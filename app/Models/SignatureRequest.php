@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
+use Creagia\LaravelSignPad\Contracts\ShouldGenerateSignatureDocument;
+use Creagia\LaravelSignPad\SignatureDocumentTemplate;
+use Creagia\LaravelSignPad\SignaturePosition;
+use Creagia\LaravelSignPad\Templates\PdfDocumentTemplate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
-class SignatureRequest extends Model
+class SignatureRequest extends Model implements ShouldGenerateSignatureDocument
 {
     use HasFactory;
 
     // Constants for signature request statuses.
-    const PENDING = 'Pending';
-    const SIGNED = 'Signed';
+    const STATUS_PENDING = 'Pending';
+    const STATUS_SIGNED = 'Signed';
 
     /**
      * The attributes that are mass assignable.
@@ -40,6 +45,25 @@ class SignatureRequest extends Model
             'signature_positions' => 'array',
             'created_at' => 'datetime',
         ];
+    }
+
+    public function getSignatureDocumentTemplate(): SignatureDocumentTemplate
+    {
+        $signaturePositions = [];
+
+        foreach ($this->signature_positions as $position) {
+            $signaturePosition[] = new SignaturePosition(
+                signaturePage: $position['page'],
+                signatureX: $position['X'],
+                signatureY: $position['Y'],
+            );
+        }
+
+        return new SignatureDocumentTemplate(
+            outputPdfPrefix: 'signed',
+            template: new PdfDocumentTemplate(Storage::path($this->document->filepath)), // Uncomment for PDF template
+            signaturePositions: $signaturePositions
+        );
     }
 
     // A request belongs to a document.

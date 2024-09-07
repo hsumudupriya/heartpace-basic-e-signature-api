@@ -22,4 +22,7 @@ Route::middleware([
     Route::get('/signature-requests/received-requests', [SignatureRequestController::class, 'receivedSignatureRequests'])
         ->name('signature-requests.received-requests');
     Route::apiResource('signature-requests', SignatureRequestController::class)->only(['index', 'store']);
+
+    // Sign document
+    Route::post('sign-document', SignDocumentController::class)->name('sign-document');
 });

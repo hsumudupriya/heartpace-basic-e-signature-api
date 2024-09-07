@@ -31,7 +31,7 @@ return [
     /**
      * Should certify the document signature with certificate
      */
-    'certify_documents' => false,
+    'certify_documents' => true,
 
     /**
      * Certificate path
@@ -42,10 +42,10 @@ return [
      * Signature certificate information. Will be attached to the generated signature in the PDF file.
      */
     'certificate_info' => [
-        'Name' => '',
+        'Name' => env('APP_NAME', 'Laravel'),
         'Location' => '',
         'Reason' => '',
-        'ContactInfo' => '',
+        'ContactInfo' => env('APP_URL', 'http://localhost'),
     ],
 
     /**

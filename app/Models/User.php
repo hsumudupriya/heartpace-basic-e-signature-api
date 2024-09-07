@@ -69,4 +69,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Document::class);
     }
+
+    // A user can make many signature requests.
+    public function madeSignatureRequests(): HasMany
+    {
+        return $this->hasMany(related: SignatureRequest::class, foreignKey: 'requested_by');
+    }
+
+    // A user can receive many signature requests.
+    public function receivedSignatureRequests(): HasMany
+    {
+        return $this->hasMany(related: SignatureRequest::class, foreignKey: 'requested_from');
+    }
 }

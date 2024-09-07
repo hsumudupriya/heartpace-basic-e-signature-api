@@ -27,10 +27,9 @@ class StoreDocument
 
         // Store the document in the database.
         $document = new Document();
-        $document->user_id = $user->id;
         $document->filename = $file->getClientOriginalName();
         $document->filepath = $filepath;
-        $document->save();
+        $user->documents()->save($document);
 
         return $document;
     }

@@ -16,7 +16,7 @@ Route::middleware([
     'auth:sanctum',
 ])->group(function () {
     // Document routes
-    Route::apiResource('documents', DocumentController::class)->only(['index', 'store']);
+    Route::apiResource('documents', DocumentController::class)->only(['index', 'store', 'show']);
 
     // Signasture Request routes
     Route::get('/signature-requests/received-requests', [SignatureRequestController::class, 'receivedSignatureRequests'])

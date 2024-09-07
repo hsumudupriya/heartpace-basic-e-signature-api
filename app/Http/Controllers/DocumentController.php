@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Actions\StoreDocument;
 use App\Http\Resources\DocumentResource;
+use App\Models\Document;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DocumentController extends Controller
 {
@@ -31,5 +34,20 @@ class DocumentController extends Controller
 
         // Return the new document.
         return new DocumentResource($document);
+    }
+
+    /**
+     * Stream a file download.
+     */
+    public function show(Document $document): ?StreamedResponse
+    {
+        // Return a file downloand if the document belongs to or is signed the authorized user and the document exists.
+        $user = Auth::user();
+
+        return ($document->user_id === $user->id || $document->signed_by === $user->id) &&
+            Storage::exists($document->filepath) ?
+            Storage::download($document->filepath, $document->filename)
+            :
+            null;
     }
 }

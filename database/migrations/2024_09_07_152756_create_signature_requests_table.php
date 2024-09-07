@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('requested_from')->unsigned();
             $table->dateTimeTz('deadline');
             $table->json('signature_positions');
-            $table->string('status')->default(SignatureRequest::PENDING);
+            $table->string('status')->default(SignatureRequest::STATUS_PENDING);
             $table->timestamps();
 
             $table->foreign('document_id')->references('id')->on('documents');

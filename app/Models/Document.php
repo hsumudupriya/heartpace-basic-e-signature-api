@@ -10,6 +10,11 @@ class Document extends Model
 {
     use HasFactory;
 
+    // Constants for signature statuses.
+    const SIGNATURE_NOT_NECESSARY = 'Not necessary';
+    const SIGNATURE_STATUS_PENDING = 'Pending';
+    const SIGNATURE_STATUS_SIGNED = 'Signed';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,9 +23,10 @@ class Document extends Model
     protected $fillable = [
         'user_id',
         'filename',
-        'document_filename',
-        'is_signed',
+        'filepath',
+        'signature_status',
         'signed_by',
+        'signed_at',
     ];
 
     /**
@@ -31,7 +37,6 @@ class Document extends Model
     protected function casts(): array
     {
         return [
-            'is_signed' => 'bool',
             'signed_at' => 'datetime',
         ];
     }
@@ -40,5 +45,11 @@ class Document extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    // A document is signed by a user.
+    public function signedBy(): BelongsTo
+    {
+        return $this->belongsTo(related: User::class, foreignKey: 'signed_by');
     }
 }

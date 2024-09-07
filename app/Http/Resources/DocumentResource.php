@@ -17,8 +17,8 @@ class DocumentResource extends JsonResource
         return [
             'id' => $this->id,
             'filename' => $this->filename,
-            'is_signed' => $this->is_signed,
-            'signed_by' => $this->signee?->name,
+            'signature_status' => $this->signature_status,
+            'signed_by' => new UserResource($this->signedBy),
             'signed_at' => $this->signed_at,
         ];
     }

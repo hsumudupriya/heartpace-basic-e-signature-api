@@ -21,8 +21,8 @@ class SignatureRequestResource extends JsonResource
             'requested_from' => new UserResource($this->requestedFrom),
             'deadline' => $this->deadline,
             'signature_positions' => $this->signature_positions,
-            'status' => $this->status,
             'requested_at' => $this->created_at,
+            'status' => $this->status,
         ];
     }
 }

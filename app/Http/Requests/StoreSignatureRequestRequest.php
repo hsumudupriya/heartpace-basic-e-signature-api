@@ -32,14 +32,25 @@ class StoreSignatureRequestRequest extends FormRequest
                 'bail',
                 'required',
                 'integer',
+
+                // Valide if the document exists.
                 function (string $attribute, mixed $documentId, Closure $fail) use (&$document) {
                     $document = Document::findOr($documentId, function () use ($fail) {
                         $fail('The document does not exist.');
                     });
                 },
+
+                // Validate if the document belongs to the requesting user.
                 function (string $attribute, mixed $documentId, Closure $fail) use (&$document) {
                     if ($document->user_id !== Auth::user()->id) {
                         $fail('The document does not belong to you.');
+                    }
+                },
+
+                // Validate if the document is already signed.
+                function (string $attribute, mixed $documentId, Closure $fail) use (&$document) {
+                    if ($document->signature_status === Document::SIGNATURE_STATUS_SIGNED) {
+                        $fail('The document is already signed.');
                     }
                 },
             ],
@@ -47,6 +58,8 @@ class StoreSignatureRequestRequest extends FormRequest
                 'bail',
                 'required',
                 'email',
+
+                // Validate if the user from whom the signature is requested exists.
                 function (string $attribute, mixed $requestedFrom, Closure $fail) {
                     User::where('email', '=', $requestedFrom)->firstOr(function () use ($fail) {
                         $fail('The requested user has not been registered with us.');

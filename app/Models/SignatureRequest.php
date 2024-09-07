@@ -52,7 +52,7 @@ class SignatureRequest extends Model implements ShouldGenerateSignatureDocument
         $signaturePositions = [];
 
         foreach ($this->signature_positions as $position) {
-            $signaturePosition[] = new SignaturePosition(
+            $signaturePositions[] = new SignaturePosition(
                 signaturePage: $position['page'],
                 signatureX: $position['X'],
                 signatureY: $position['Y'],

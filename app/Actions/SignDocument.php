@@ -28,15 +28,18 @@ class SignDocument
     {
         // Validate the request or throw 422 error response.
         $validatedData = $this->request->validated();
-        $signatureImage = $this->request->file('signature')->get();
+        $signatureFile = $this->request->file('signature');
 
+        // Fetch the signature request and the document.
         $signatureRequest = SignatureRequest::findOrFail($validatedData['request_id']);
         $document = $signatureRequest->document;
 
+        // Throw an exception is the document has been signed.
         if ($document instanceof CanBeSigned && $document->hasBeenSigned()) {
             throw new ModelHasAlreadyBeenSigned;
         }
 
+        // Create the signature object.
         $uuid = Str::uuid()->toString();
         $filename = "{$uuid}.png";
         $signatureObj = $document->signature()->create([
@@ -46,18 +49,27 @@ class SignDocument
             'certified' => config('sign-pad.certify_documents'),
         ]);
 
-        Storage::disk(config('sign-pad.disk_name'))->put($signatureObj->getSignatureImagePath(), $signatureImage);
+        // Store the signature as a file.
+        Storage::disk(config('sign-pad.disk_name'))->put($signatureObj->getSignatureImagePath(), $signatureFile->get());
 
         if ($signatureRequest instanceof ShouldGenerateSignatureDocument) {
+            // Set the dimensions of the sign pad to the dimensions of the image.
+            // $signatureSizes = getimagesize($signatureFile->path());
+            // config([
+            //     'sign-pad.width' => $signatureSizes[0],
+            //     'sign-pad.height' => $signatureSizes[1],
+            // ]);
+
+            // Generate the signed document.
             ($this->generateSignatureDocumentAction)(
                 $signatureObj,
                 $signatureRequest->getSignatureDocumentTemplate(),
-                $signatureImage
+                $signatureFile->get()
             );
         }
 
         // Update the existing document with the signed document.
-        $document->filepath = $signatureObj->getSignatureImageAbsolutePath();
+        $document->filepath = $signatureObj->getSignedDocumentPath();
         $document->signature_status = Document::SIGNATURE_STATUS_SIGNED;
         $document->signedBy()->associate($this->request->user());
         $document->signed_at = now();

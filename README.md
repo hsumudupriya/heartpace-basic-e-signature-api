@@ -36,4 +36,11 @@ Open bash/terminal/command line tool and run the commands below to test the appl
 1. `./vendor/bin/sail artisan test`
 
 Below tests are implemented in the application.
+
 ![tests](/test-results.jpg "tests")
+
+## Additional info
+
+ER diagram of the application
+
+![erd](/erd.jpg "erd")

@@ -22,7 +22,7 @@ class DocumentControllerTest extends TestCase
 
         // Fake the storage and create a fake PDF.
         Storage::fake();
-        $document = UploadedFile::fake()->image('document.pdf');
+        $document = UploadedFile::fake()->create('document.pdf');
 
         // Make a request to the api endpoint and assert the result.
         $this->postJson(

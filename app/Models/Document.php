@@ -13,7 +13,7 @@ class Document extends Model implements CanBeSigned
     use HasFactory, RequiresSignature;
 
     // Constants for signature statuses.
-    const SIGNATURE_NOT_NECESSARY = 'Not necessary';
+    const SIGNATURE_STATUS_NOT_NECESSARY = 'Not necessary';
     const SIGNATURE_STATUS_PENDING = 'Pending';
     const SIGNATURE_STATUS_SIGNED = 'Signed';
 

@@ -49,7 +49,7 @@ class DocumentControllerTest extends TestCase
             'user_id' => $user->id,
             'filename' => $document->getClientOriginalName(),
             'filepath' => sprintf('users/%d/documents/%s', $user->id, $document->hashName()),
-            'signature_status' => Document::SIGNATURE_NOT_NECESSARY,
+            'signature_status' => Document::SIGNATURE_STATUS_NOT_NECESSARY,
         ]);
     }
 

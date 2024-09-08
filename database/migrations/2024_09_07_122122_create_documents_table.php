@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->string('filename');
             $table->string('filepath');
-            $table->string('signature_status')->default(Document::SIGNATURE_NOT_NECESSARY);
+            $table->string('signature_status')->default(Document::SIGNATURE_STATUS_NOT_NECESSARY);
             $table->bigInteger('signed_by')->unsigned()->nullable();
             $table->timestamp('signed_at')->nullable();
             $table->timestamps();

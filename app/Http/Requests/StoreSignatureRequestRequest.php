@@ -47,10 +47,13 @@ class StoreSignatureRequestRequest extends FormRequest
                     }
                 },
 
-                // Validate if the document is already signed.
+                // Validate if the document is not signed or not pending to be signed.
                 function (string $attribute, mixed $documentId, Closure $fail) use (&$document) {
-                    if ($document->signature_status === Document::SIGNATURE_STATUS_SIGNED) {
-                        $fail('The document is already signed.');
+                    if (
+                        $document->signature_status === Document::SIGNATURE_STATUS_SIGNED ||
+                        $document->signature_status === Document::SIGNATURE_STATUS_PENDING
+                    ) {
+                        $fail('The document is already signed or has a pending request.');
                     }
                 },
             ],

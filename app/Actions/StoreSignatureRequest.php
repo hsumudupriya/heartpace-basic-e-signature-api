@@ -29,6 +29,7 @@ class StoreSignatureRequest
         $signatureRequest->document()->associate($document);
         $signatureRequest->deadline = $validatedData['deadline'];
         $signatureRequest->signature_positions = $validatedData['signature_positions'];
+        $signatureRequest->status = SignatureRequest::STATUS_PENDING;
 
         // Associate the signature request with the requested from user.
         $requestedFrom = User::where('email', $validatedData['requested_from'])->firstOrFail();

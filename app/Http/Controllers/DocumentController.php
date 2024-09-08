@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\StoreDocument;
+use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Resources\DocumentResource;
 use App\Models\Document;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -13,7 +14,10 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class DocumentController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Get documents
+     *
+     * @group Documents
+     * @apiResourceCollection App\Http\Resources\DocumentResource
      */
     public function index(): ResourceCollection
     {
@@ -25,19 +29,26 @@ class DocumentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Upload a document
+     *
+     * @group Documents
+     * @apiResource App\Http\Resources\DocumentResource
      */
-    public function store(StoreDocument $storeDocument): DocumentResource
+    public function store(StoreDocumentRequest $request, StoreDocument $storeDocument): DocumentResource
     {
         // Store the document.
-        $document = $storeDocument->store();
+        $document = $storeDocument->store($request);
 
         // Return the new document.
         return new DocumentResource($document);
     }
 
     /**
-     * Stream a file download.
+     * Download a document
+     *
+     * Download a document uploaded or signed by the user.
+     *
+     * @group Documents
      */
     public function show(Document $document): ?StreamedResponse
     {

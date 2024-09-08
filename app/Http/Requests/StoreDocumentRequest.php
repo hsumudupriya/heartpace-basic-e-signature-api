@@ -25,6 +25,7 @@ class StoreDocumentRequest extends FormRequest
         return [
             'document' => [
                 'required',
+                'file',
                 // only PDF files less than 100 MB in size are accepted
                 File::types('pdf')->max('100mb'),
             ],

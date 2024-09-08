@@ -1,0 +1,63 @@
+name: 'Sign a document'
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/sign-document
+    metadata:
+      groupName: 'Sign a document'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Sign a document'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      request_id:
+        name: request_id
+        description: ''
+        required: true
+        example: 8
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      signature:
+        name: signature
+        description: 'Must be a file. Must be 10240 kilobytes.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      request_id: 8
+    fileParameters:
+      signature: null
+    responses:
+      -
+        status: 200
+        content: '{"data":{"id":66,"filename":"fakerQn2UE2","signature_status":"Not necessary","signed_by":null,"signed_at":null}}'
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer PvakahV4bZ186fDd563Egce'
+    controller: null
+    method: null
+    route: null
+    custom: []

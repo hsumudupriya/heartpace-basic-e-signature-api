@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\StoreSignatureRequest;
+use App\Http\Requests\StoreSignatureRequestRequest;
 use App\Http\Resources\SignatureRequestResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,12 @@ use Illuminate\Support\Facades\Auth;
 class SignatureRequestController extends Controller
 {
     /**
-     * Return the list of signature requests made by the authorized user.
+     * Get made requests
+     *
+     * Returns the list of signature requests made by the authorized user.
+     *
+     * @group Signature requests
+     * @apiResourceCollection App\Http\Resources\SignatureRequestResource
      */
     public function index(): ResourceCollection
     {
@@ -22,19 +28,27 @@ class SignatureRequestController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a request
+     *
+     * @group Signature requests
+     * @apiResource App\Http\Resources\SignatureRequestResource
      */
-    public function store(StoreSignatureRequest $storeSignatureRequest): SignatureRequestResource
+    public function store(StoreSignatureRequestRequest $request, StoreSignatureRequest $storeSignatureRequest): SignatureRequestResource
     {
         // Store the signature request.
-        $signatureRequest = $storeSignatureRequest->store();
+        $signatureRequest = $storeSignatureRequest->store($request);
 
         // Return the new signature request.
         return new SignatureRequestResource($signatureRequest);
     }
 
     /**
+     * Get received requests
+     *
      * Return the list of signature requests received by the authorized user.
+     *
+     * @group Signature requests
+     * @apiResourceCollection App\Http\Resources\SignatureRequestResource
      */
     public function receivedSignatureRequests(): ResourceCollection
     {

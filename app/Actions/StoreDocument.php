@@ -7,21 +7,19 @@ use App\Models\Document;
 
 class StoreDocument
 {
-    public function __construct(private StoreDocumentRequest $request) {}
-
     /**
      * Validate and store a document.
      *
      * @param  array<string, string>  $input
      */
-    public function store(): Document
+    public function store(StoreDocumentRequest $request): Document
     {
         // Validate the request or throw 422 error response.
-        $this->request->validated();
+        $request->validated();
 
         // Store the document in the user's directory.
-        $user = $this->request->user();
-        $file = $this->request->file('document');
+        $user = $request->user();
+        $file = $request->file('document');
         $userDirectory = sprintf('users/%d/documents', $user->id);
         $filepath = $file->store($userDirectory);
 

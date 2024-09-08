@@ -1,0 +1,147 @@
+name: Authentication
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/login
+    metadata:
+      groupName: Authentication
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: Login
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: jgutkowski@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      password:
+        name: password
+        description: ''
+        required: true
+        example: nihil
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      email: jgutkowski@example.net
+      password: nihil
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: '{"token": "5|L5iNL6oVTXdBfEiIo7n8mE5yKQVngBlYD3eTSZ4xc9dd8b3b"}'
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: '{"message": "The provided credentials do not match our records."}'
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: '{"message": "The password field is required.", "errors" : { "password" : []}}'
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/register
+    metadata:
+      groupName: Authentication
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: Register
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: ''
+        required: true
+        example: sed
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      email:
+        name: email
+        description: ''
+        required: true
+        example: braxton.shanahan@example.org
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      password:
+        name: password
+        description: ''
+        required: true
+        example: 'K/~F_\VQ7|\$d{VX,0'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      password_confirmation:
+        name: password_confirmation
+        description: ''
+        required: true
+        example: voluptatem
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      name: sed
+      email: braxton.shanahan@example.org
+      password: 'K/~F_\VQ7|\$d{VX,0'
+      password_confirmation: voluptatem
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":{"id":125,"name":"Rasheed Stehr","email":"lydia54@example.com"}}'
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

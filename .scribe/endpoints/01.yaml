@@ -1,0 +1,146 @@
+name: Documents
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/documents
+    metadata:
+      groupName: Documents
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get documents'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":[{"id":58,"filename":"fakerfgj7Q2","signature_status":"Pending","signed_by":null,"signed_at":null},{"id":59,"filename":"fakerZFPOl9","signature_status":"Signed","signed_by":null,"signed_at":null}]}'
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 4fVdecPhkE36a6DbZv85g1a'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/documents
+    metadata:
+      groupName: Documents
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Upload a document'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      document:
+        name: document
+        description: 'Must be a file. Must be 102400 kilobytes.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters: []
+    fileParameters:
+      document: null
+    responses:
+      -
+        status: 200
+        content: '{"data":{"id":60,"filename":"fakerAFehde","signature_status":"Signed","signed_by":null,"signed_at":null}}'
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer PEvZ6185a3DhVg6af4bedkc'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/documents/{id}'
+    metadata:
+      groupName: Documents
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Download a document'
+      description: 'Download a document uploaded or signed by the user.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_ACCESS_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the document.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer aV14hcZk6bg8eEdaDfvP653'
+    controller: null
+    method: null
+    route: null
+    custom: []

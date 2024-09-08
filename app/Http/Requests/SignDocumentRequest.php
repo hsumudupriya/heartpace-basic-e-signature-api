@@ -64,6 +64,7 @@ class SignDocumentRequest extends FormRequest
             ],
             'signature' => [
                 'required',
+                'file',
                 // only png, jpg, or jpeg files less than 10 MB in size are accepted
                 File::types(['png', 'jpg', 'jpeg'])->max('10mb'),
             ]

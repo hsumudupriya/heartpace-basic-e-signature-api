@@ -9,7 +9,13 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     /**
-     * Handle an authentication attempt.
+     * Login
+     *
+     * @group Authentication
+     * @unauthenticated
+     * @response 201 {"token": "5|L5iNL6oVTXdBfEiIo7n8mE5yKQVngBlYD3eTSZ4xc9dd8b3b"}
+     * @response 401 {"message": "The provided credentials do not match our records."}
+     * @response 422 {"message": "The password field is required.", "errors" : { "password" : []}}
      */
     public function __invoke(Request $request): JsonResponse
     {

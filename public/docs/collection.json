@@ -1,0 +1,412 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/heartpace-besa.test"
+        }
+    ],
+    "info": {
+        "name": "Heartpace Basic E-signature API Documentation",
+        "_postman_id": "6a979184-73a8-449f-976d-2492ffdc9ce4",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "description": "",
+            "item": [
+                {
+                    "name": "Login",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"jgutkowski@example.net\",\"password\":\"nihil\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"token\": \"5|L5iNL6oVTXdBfEiIo7n8mE5yKQVngBlYD3eTSZ4xc9dd8b3b\"}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\": \"The provided credentials do not match our records.\"}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"message\": \"The password field is required.\", \"errors\" : { \"password\" : []}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Register",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"sed\",\"email\":\"braxton.shanahan@example.org\",\"password\":\"K\\\/~F_\\\\VQ7|\\\\$d{VX,0\",\"password_confirmation\":\"voluptatem\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":125,\"name\":\"Rasheed Stehr\",\"email\":\"lydia54@example.com\"}}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Documents",
+            "description": "",
+            "item": [
+                {
+                    "name": "Get documents",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/documents",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/documents"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":58,\"filename\":\"fakerfgj7Q2\",\"signature_status\":\"Pending\",\"signed_by\":null,\"signed_at\":null},{\"id\":59,\"filename\":\"fakerZFPOl9\",\"signature_status\":\"Signed\",\"signed_by\":null,\"signed_at\":null}]}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Upload a document",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/documents",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/documents"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart\/form-data"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "document",
+                                    "src": [],
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":60,\"filename\":\"fakerAFehde\",\"signature_status\":\"Signed\",\"signed_by\":null,\"signed_at\":null}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Download a document",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/documents\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/documents\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the document."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Download a document uploaded or signed by the user."
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Sign a document",
+            "description": "",
+            "item": [
+                {
+                    "name": "Sign a document",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/sign-document",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/sign-document"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart\/form-data"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "request_id",
+                                    "value": 8,
+                                    "type": "text",
+                                    "description": ""
+                                },
+                                {
+                                    "key": "signature",
+                                    "src": [],
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":66,\"filename\":\"fakerQn2UE2\",\"signature_status\":\"Not necessary\",\"signed_by\":null,\"signed_at\":null}}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Signature requests",
+            "description": "",
+            "item": [
+                {
+                    "name": "Get received requests",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/signature-requests\/received-requests",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/signature-requests\/received-requests"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Return the list of signature requests received by the authorized user."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":25,\"document\":{\"id\":61,\"filename\":\"fakerzMN6ez\",\"signature_status\":\"Pending\",\"signed_by\":null,\"signed_at\":null},\"requested_by\":{\"id\":130,\"name\":\"Prof. Cruz Hudson DDS\",\"email\":\"mary.price@example.com\"},\"requested_from\":{\"id\":131,\"name\":\"Dr. Reese Bernhard Jr.\",\"email\":\"joconnell@example.com\"},\"deadline\":\"2024-09-09T09:26:31.000000Z\",\"signature_positions\":[{\"X\":50,\"Y\":50,\"page\":1}],\"requested_at\":\"2024-09-08T09:26:31.000000Z\",\"status\":\"Signed\"},{\"id\":26,\"document\":{\"id\":62,\"filename\":\"fakerWJxzio\",\"signature_status\":\"Pending\",\"signed_by\":null,\"signed_at\":null},\"requested_by\":{\"id\":133,\"name\":\"Berta Hoppe\",\"email\":\"ilarson@example.org\"},\"requested_from\":{\"id\":134,\"name\":\"Santa Donnelly\",\"email\":\"neha.boyle@example.com\"},\"deadline\":\"2024-09-09T09:26:31.000000Z\",\"signature_positions\":[{\"X\":50,\"Y\":50,\"page\":1}],\"requested_at\":\"2024-09-08T09:26:31.000000Z\",\"status\":\"Signed\"}]}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get made requests",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/signature-requests",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/signature-requests"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Returns the list of signature requests made by the authorized user."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":27,\"document\":{\"id\":63,\"filename\":\"fakerjxp5No\",\"signature_status\":\"Not necessary\",\"signed_by\":null,\"signed_at\":null},\"requested_by\":{\"id\":136,\"name\":\"Lauryn Mertz\",\"email\":\"rogelio.russel@example.org\"},\"requested_from\":{\"id\":137,\"name\":\"Alexandrea Okuneva\",\"email\":\"miller.shana@example.com\"},\"deadline\":\"2024-09-09T09:26:31.000000Z\",\"signature_positions\":[{\"X\":50,\"Y\":50,\"page\":1}],\"requested_at\":\"2024-09-08T09:26:31.000000Z\",\"status\":\"Pending\"},{\"id\":28,\"document\":{\"id\":64,\"filename\":\"fakerwKlkvT\",\"signature_status\":\"Pending\",\"signed_by\":null,\"signed_at\":null},\"requested_by\":{\"id\":139,\"name\":\"Nayeli Powlowski\",\"email\":\"hermiston.kayli@example.org\"},\"requested_from\":{\"id\":140,\"name\":\"Oscar Kiehn II\",\"email\":\"bgaylord@example.net\"},\"deadline\":\"2024-09-09T09:26:31.000000Z\",\"signature_positions\":[{\"X\":50,\"Y\":50,\"page\":1}],\"requested_at\":\"2024-09-08T09:26:31.000000Z\",\"status\":\"Pending\"}]}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a request",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/signature-requests",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/signature-requests"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"document_id\":5,\"requested_from\":\"stoltenberg.raphaelle@example.net\",\"signature_positions\":[{\"page\":15,\"X\":11,\"Y\":18}],\"deadline\":\"2050-04-22\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":29,\"document\":{\"id\":65,\"filename\":\"fakerVvr6va\",\"signature_status\":\"Signed\",\"signed_by\":null,\"signed_at\":null},\"requested_by\":{\"id\":142,\"name\":\"Hettie Denesik IV\",\"email\":\"orippin@example.org\"},\"requested_from\":{\"id\":143,\"name\":\"Katelyn O'Keefe MD\",\"email\":\"bahringer.osvaldo@example.net\"},\"deadline\":\"2024-09-09T09:26:31.000000Z\",\"signature_positions\":[{\"X\":50,\"Y\":50,\"page\":1}],\"requested_at\":\"2024-09-08T09:26:31.000000Z\",\"status\":\"Pending\"}}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "Authorization",
+                "type": "string"
+            }
+        ]
+    }
+}

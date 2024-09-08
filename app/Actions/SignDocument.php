@@ -15,7 +15,6 @@ use Illuminate\Support\Str;
 class SignDocument
 {
     public function __construct(
-        private SignDocumentRequest $request,
         private GenerateSignatureDocumentAction $generateSignatureDocumentAction
     ) {}
 
@@ -24,11 +23,11 @@ class SignDocument
      *
      * @param  array<string, string>  $input
      */
-    public function sign(): Document
+    public function sign(SignDocumentRequest $request): Document
     {
         // Validate the request or throw 422 error response.
-        $validatedData = $this->request->validated();
-        $signatureFile = $this->request->file('signature');
+        $validatedData = $request->validated();
+        $signatureFile = $request->file('signature');
 
         // Fetch the signature request and the document.
         $signatureRequest = SignatureRequest::findOrFail($validatedData['request_id']);
@@ -44,7 +43,7 @@ class SignDocument
         $filename = "{$uuid}.png";
         $signatureObj = $document->signature()->create([
             'uuid' => $uuid,
-            'from_ips' => $this->request->ips(),
+            'from_ips' => $request->ips(),
             'filename' => $filename,
             'certified' => config('sign-pad.certify_documents'),
         ]);
@@ -71,7 +70,7 @@ class SignDocument
         // Update the existing document with the signed document.
         $document->filepath = $signatureObj->getSignedDocumentPath();
         $document->signature_status = Document::SIGNATURE_STATUS_SIGNED;
-        $document->signedBy()->associate($this->request->user());
+        $document->signedBy()->associate($request->user());
         $document->signed_at = now();
         $document->save();
 

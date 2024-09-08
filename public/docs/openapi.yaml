@@ -1,0 +1,920 @@
+openapi: 3.0.3
+info:
+  title: 'Heartpace Basic E-signature API Documentation'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://heartpace-besa.test'
+paths:
+  /api/login:
+    post:
+      summary: Login
+      operationId: login
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token: 5|L5iNL6oVTXdBfEiIo7n8mE5yKQVngBlYD3eTSZ4xc9dd8b3b
+                properties:
+                  token:
+                    type: string
+                    example: 5|L5iNL6oVTXdBfEiIo7n8mE5yKQVngBlYD3eTSZ4xc9dd8b3b
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The provided credentials do not match our records.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The provided credentials do not match our records.'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The password field is required.'
+                  errors:
+                    password: []
+                properties:
+                  message:
+                    type: string
+                    example: 'The password field is required.'
+                  errors:
+                    type: object
+                    properties:
+                      password:
+                        type: array
+                        example: []
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: jgutkowski@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: nihil
+              required:
+                - email
+                - password
+      security: []
+  /api/register:
+    post:
+      summary: Register
+      operationId: register
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 125
+                    name: 'Rasheed Stehr'
+                    email: lydia54@example.com
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 125
+                      name:
+                        type: string
+                        example: 'Rasheed Stehr'
+                      email:
+                        type: string
+                        example: lydia54@example.com
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: sed
+                email:
+                  type: string
+                  description: ''
+                  example: braxton.shanahan@example.org
+                password:
+                  type: string
+                  description: ''
+                  example: 'K/~F_\VQ7|\$d{VX,0'
+                password_confirmation:
+                  type: string
+                  description: ''
+                  example: voluptatem
+              required:
+                - name
+                - email
+                - password
+                - password_confirmation
+      security: []
+  /api/documents:
+    get:
+      summary: 'Get documents'
+      operationId: getDocuments
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 58
+                      filename: fakerfgj7Q2
+                      signature_status: Pending
+                      signed_by: null
+                      signed_at: null
+                    -
+                      id: 59
+                      filename: fakerZFPOl9
+                      signature_status: Signed
+                      signed_by: null
+                      signed_at: null
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 58
+                        filename: fakerfgj7Q2
+                        signature_status: Pending
+                        signed_by: null
+                        signed_at: null
+                      -
+                        id: 59
+                        filename: fakerZFPOl9
+                        signature_status: Signed
+                        signed_by: null
+                        signed_at: null
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 58
+                        filename:
+                          type: string
+                          example: fakerfgj7Q2
+                        signature_status:
+                          type: string
+                          example: Pending
+                        signed_by:
+                          type: string
+                          example: null
+                        signed_at:
+                          type: string
+                          example: null
+      tags:
+        - Documents
+    post:
+      summary: 'Upload a document'
+      operationId: uploadADocument
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 60
+                    filename: fakerAFehde
+                    signature_status: Signed
+                    signed_by: null
+                    signed_at: null
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 60
+                      filename:
+                        type: string
+                        example: fakerAFehde
+                      signature_status:
+                        type: string
+                        example: Signed
+                      signed_by:
+                        type: string
+                        example: null
+                      signed_at:
+                        type: string
+                        example: null
+      tags:
+        - Documents
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                document:
+                  type: string
+                  format: binary
+                  description: 'Must be a file. Must be 102400 kilobytes.'
+              required:
+                - document
+  '/api/documents/{id}':
+    get:
+      summary: 'Download a document'
+      operationId: downloadADocument
+      description: 'Download a document uploaded or signed by the user.'
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Documents
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the document.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/sign-document:
+    post:
+      summary: 'Sign a document'
+      operationId: signADocument
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 66
+                    filename: fakerQn2UE2
+                    signature_status: 'Not necessary'
+                    signed_by: null
+                    signed_at: null
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 66
+                      filename:
+                        type: string
+                        example: fakerQn2UE2
+                      signature_status:
+                        type: string
+                        example: 'Not necessary'
+                      signed_by:
+                        type: string
+                        example: null
+                      signed_at:
+                        type: string
+                        example: null
+      tags:
+        - 'Sign a document'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                request_id:
+                  type: integer
+                  description: ''
+                  example: 8
+                signature:
+                  type: string
+                  format: binary
+                  description: 'Must be a file. Must be 10240 kilobytes.'
+              required:
+                - request_id
+                - signature
+  /api/signature-requests/received-requests:
+    get:
+      summary: 'Get received requests'
+      operationId: getReceivedRequests
+      description: 'Return the list of signature requests received by the authorized user.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 25
+                      document:
+                        id: 61
+                        filename: fakerzMN6ez
+                        signature_status: Pending
+                        signed_by: null
+                        signed_at: null
+                      requested_by:
+                        id: 130
+                        name: 'Prof. Cruz Hudson DDS'
+                        email: mary.price@example.com
+                      requested_from:
+                        id: 131
+                        name: 'Dr. Reese Bernhard Jr.'
+                        email: joconnell@example.com
+                      deadline: '2024-09-09T09:26:31.000000Z'
+                      signature_positions:
+                        -
+                          X: 50
+                          'Y': 50
+                          page: 1
+                      requested_at: '2024-09-08T09:26:31.000000Z'
+                      status: Signed
+                    -
+                      id: 26
+                      document:
+                        id: 62
+                        filename: fakerWJxzio
+                        signature_status: Pending
+                        signed_by: null
+                        signed_at: null
+                      requested_by:
+                        id: 133
+                        name: 'Berta Hoppe'
+                        email: ilarson@example.org
+                      requested_from:
+                        id: 134
+                        name: 'Santa Donnelly'
+                        email: neha.boyle@example.com
+                      deadline: '2024-09-09T09:26:31.000000Z'
+                      signature_positions:
+                        -
+                          X: 50
+                          'Y': 50
+                          page: 1
+                      requested_at: '2024-09-08T09:26:31.000000Z'
+                      status: Signed
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 25
+                        document:
+                          id: 61
+                          filename: fakerzMN6ez
+                          signature_status: Pending
+                          signed_by: null
+                          signed_at: null
+                        requested_by:
+                          id: 130
+                          name: 'Prof. Cruz Hudson DDS'
+                          email: mary.price@example.com
+                        requested_from:
+                          id: 131
+                          name: 'Dr. Reese Bernhard Jr.'
+                          email: joconnell@example.com
+                        deadline: '2024-09-09T09:26:31.000000Z'
+                        signature_positions:
+                          -
+                            X: 50
+                            'Y': 50
+                            page: 1
+                        requested_at: '2024-09-08T09:26:31.000000Z'
+                        status: Signed
+                      -
+                        id: 26
+                        document:
+                          id: 62
+                          filename: fakerWJxzio
+                          signature_status: Pending
+                          signed_by: null
+                          signed_at: null
+                        requested_by:
+                          id: 133
+                          name: 'Berta Hoppe'
+                          email: ilarson@example.org
+                        requested_from:
+                          id: 134
+                          name: 'Santa Donnelly'
+                          email: neha.boyle@example.com
+                        deadline: '2024-09-09T09:26:31.000000Z'
+                        signature_positions:
+                          -
+                            X: 50
+                            'Y': 50
+                            page: 1
+                        requested_at: '2024-09-08T09:26:31.000000Z'
+                        status: Signed
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 25
+                        document:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 61
+                            filename:
+                              type: string
+                              example: fakerzMN6ez
+                            signature_status:
+                              type: string
+                              example: Pending
+                            signed_by:
+                              type: string
+                              example: null
+                            signed_at:
+                              type: string
+                              example: null
+                        requested_by:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 130
+                            name:
+                              type: string
+                              example: 'Prof. Cruz Hudson DDS'
+                            email:
+                              type: string
+                              example: mary.price@example.com
+                        requested_from:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 131
+                            name:
+                              type: string
+                              example: 'Dr. Reese Bernhard Jr.'
+                            email:
+                              type: string
+                              example: joconnell@example.com
+                        deadline:
+                          type: string
+                          example: '2024-09-09T09:26:31.000000Z'
+                        signature_positions:
+                          type: array
+                          example:
+                            -
+                              X: 50
+                              'Y': 50
+                              page: 1
+                          items:
+                            type: object
+                            properties:
+                              X:
+                                type: integer
+                                example: 50
+                              'Y':
+                                type: integer
+                                example: 50
+                              page:
+                                type: integer
+                                example: 1
+                        requested_at:
+                          type: string
+                          example: '2024-09-08T09:26:31.000000Z'
+                        status:
+                          type: string
+                          example: Signed
+      tags:
+        - 'Signature requests'
+  /api/signature-requests:
+    get:
+      summary: 'Get made requests'
+      operationId: getMadeRequests
+      description: 'Returns the list of signature requests made by the authorized user.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 27
+                      document:
+                        id: 63
+                        filename: fakerjxp5No
+                        signature_status: 'Not necessary'
+                        signed_by: null
+                        signed_at: null
+                      requested_by:
+                        id: 136
+                        name: 'Lauryn Mertz'
+                        email: rogelio.russel@example.org
+                      requested_from:
+                        id: 137
+                        name: 'Alexandrea Okuneva'
+                        email: miller.shana@example.com
+                      deadline: '2024-09-09T09:26:31.000000Z'
+                      signature_positions:
+                        -
+                          X: 50
+                          'Y': 50
+                          page: 1
+                      requested_at: '2024-09-08T09:26:31.000000Z'
+                      status: Pending
+                    -
+                      id: 28
+                      document:
+                        id: 64
+                        filename: fakerwKlkvT
+                        signature_status: Pending
+                        signed_by: null
+                        signed_at: null
+                      requested_by:
+                        id: 139
+                        name: 'Nayeli Powlowski'
+                        email: hermiston.kayli@example.org
+                      requested_from:
+                        id: 140
+                        name: 'Oscar Kiehn II'
+                        email: bgaylord@example.net
+                      deadline: '2024-09-09T09:26:31.000000Z'
+                      signature_positions:
+                        -
+                          X: 50
+                          'Y': 50
+                          page: 1
+                      requested_at: '2024-09-08T09:26:31.000000Z'
+                      status: Pending
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 27
+                        document:
+                          id: 63
+                          filename: fakerjxp5No
+                          signature_status: 'Not necessary'
+                          signed_by: null
+                          signed_at: null
+                        requested_by:
+                          id: 136
+                          name: 'Lauryn Mertz'
+                          email: rogelio.russel@example.org
+                        requested_from:
+                          id: 137
+                          name: 'Alexandrea Okuneva'
+                          email: miller.shana@example.com
+                        deadline: '2024-09-09T09:26:31.000000Z'
+                        signature_positions:
+                          -
+                            X: 50
+                            'Y': 50
+                            page: 1
+                        requested_at: '2024-09-08T09:26:31.000000Z'
+                        status: Pending
+                      -
+                        id: 28
+                        document:
+                          id: 64
+                          filename: fakerwKlkvT
+                          signature_status: Pending
+                          signed_by: null
+                          signed_at: null
+                        requested_by:
+                          id: 139
+                          name: 'Nayeli Powlowski'
+                          email: hermiston.kayli@example.org
+                        requested_from:
+                          id: 140
+                          name: 'Oscar Kiehn II'
+                          email: bgaylord@example.net
+                        deadline: '2024-09-09T09:26:31.000000Z'
+                        signature_positions:
+                          -
+                            X: 50
+                            'Y': 50
+                            page: 1
+                        requested_at: '2024-09-08T09:26:31.000000Z'
+                        status: Pending
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 27
+                        document:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 63
+                            filename:
+                              type: string
+                              example: fakerjxp5No
+                            signature_status:
+                              type: string
+                              example: 'Not necessary'
+                            signed_by:
+                              type: string
+                              example: null
+                            signed_at:
+                              type: string
+                              example: null
+                        requested_by:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 136
+                            name:
+                              type: string
+                              example: 'Lauryn Mertz'
+                            email:
+                              type: string
+                              example: rogelio.russel@example.org
+                        requested_from:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 137
+                            name:
+                              type: string
+                              example: 'Alexandrea Okuneva'
+                            email:
+                              type: string
+                              example: miller.shana@example.com
+                        deadline:
+                          type: string
+                          example: '2024-09-09T09:26:31.000000Z'
+                        signature_positions:
+                          type: array
+                          example:
+                            -
+                              X: 50
+                              'Y': 50
+                              page: 1
+                          items:
+                            type: object
+                            properties:
+                              X:
+                                type: integer
+                                example: 50
+                              'Y':
+                                type: integer
+                                example: 50
+                              page:
+                                type: integer
+                                example: 1
+                        requested_at:
+                          type: string
+                          example: '2024-09-08T09:26:31.000000Z'
+                        status:
+                          type: string
+                          example: Pending
+      tags:
+        - 'Signature requests'
+    post:
+      summary: 'Create a request'
+      operationId: createARequest
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 29
+                    document:
+                      id: 65
+                      filename: fakerVvr6va
+                      signature_status: Signed
+                      signed_by: null
+                      signed_at: null
+                    requested_by:
+                      id: 142
+                      name: 'Hettie Denesik IV'
+                      email: orippin@example.org
+                    requested_from:
+                      id: 143
+                      name: "Katelyn O'Keefe MD"
+                      email: bahringer.osvaldo@example.net
+                    deadline: '2024-09-09T09:26:31.000000Z'
+                    signature_positions:
+                      -
+                        X: 50
+                        'Y': 50
+                        page: 1
+                    requested_at: '2024-09-08T09:26:31.000000Z'
+                    status: Pending
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 29
+                      document:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 65
+                          filename:
+                            type: string
+                            example: fakerVvr6va
+                          signature_status:
+                            type: string
+                            example: Signed
+                          signed_by:
+                            type: string
+                            example: null
+                          signed_at:
+                            type: string
+                            example: null
+                      requested_by:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 142
+                          name:
+                            type: string
+                            example: 'Hettie Denesik IV'
+                          email:
+                            type: string
+                            example: orippin@example.org
+                      requested_from:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 143
+                          name:
+                            type: string
+                            example: "Katelyn O'Keefe MD"
+                          email:
+                            type: string
+                            example: bahringer.osvaldo@example.net
+                      deadline:
+                        type: string
+                        example: '2024-09-09T09:26:31.000000Z'
+                      signature_positions:
+                        type: array
+                        example:
+                          -
+                            X: 50
+                            'Y': 50
+                            page: 1
+                        items:
+                          type: object
+                          properties:
+                            X:
+                              type: integer
+                              example: 50
+                            'Y':
+                              type: integer
+                              example: 50
+                            page:
+                              type: integer
+                              example: 1
+                      requested_at:
+                        type: string
+                        example: '2024-09-08T09:26:31.000000Z'
+                      status:
+                        type: string
+                        example: Pending
+      tags:
+        - 'Signature requests'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document_id:
+                  type: integer
+                  description: ''
+                  example: 5
+                requested_from:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: stoltenberg.raphaelle@example.net
+                signature_positions:
+                  type: array
+                  description: ''
+                  example:
+                    - []
+                  items:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                        description: ''
+                        example: 15
+                      X:
+                        type: integer
+                        description: ''
+                        example: 11
+                      'Y':
+                        type: integer
+                        description: ''
+                        example: 18
+                    required:
+                      - page
+                      - X
+                      - 'Y'
+                deadline:
+                  type: string
+                  description: 'Must be a valid date in the format <code>Y-m-d\TH:i:sP</code>. Must be a date after or equal to <code>now</code>.'
+                  example: '2050-04-22'
+              required:
+                - document_id
+                - requested_from
+                - signature_positions
+                - deadline
+tags:
+  -
+    name: Authentication
+    description: ''
+  -
+    name: Documents
+    description: ''
+  -
+    name: 'Sign a document'
+    description: ''
+  -
+    name: 'Signature requests'
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can retrieve your token by making a POST request to the login API endpoint with your email and password.'
+security:
+  -
+    default: []

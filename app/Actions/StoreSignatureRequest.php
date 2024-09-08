@@ -9,17 +9,15 @@ use App\Models\User;
 
 class StoreSignatureRequest
 {
-    public function __construct(private StoreSignatureRequestRequest $request) {}
-
     /**
      * Validate and store a document.
      *
      * @param  array<string, string>  $input
      */
-    public function store(): SignatureRequest
+    public function store(StoreSignatureRequestRequest $request): SignatureRequest
     {
         // Validate the request or throw 422 error response.
-        $validatedData = $this->request->validated();
+        $validatedData = $request->validated();
 
         // Get the document.
         $document = Document::findOrFail($validatedData['document_id']);
@@ -36,7 +34,7 @@ class StoreSignatureRequest
         $signatureRequest->requestedFrom()->associate($requestedFrom);
 
         // Save the signature request with the authenticated user.
-        $user = $this->request->user();
+        $user = $request->user();
         $user->madeSignatureRequests()->save($signatureRequest);
 
         // Update the status of the document.

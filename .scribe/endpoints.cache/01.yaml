@@ -30,7 +30,7 @@ endpoints:
     responses:
       -
         status: 200
-        content: '{"data":[{"id":58,"filename":"fakerfgj7Q2","signature_status":"Pending","signed_by":null,"signed_at":null},{"id":59,"filename":"fakerZFPOl9","signature_status":"Signed","signed_by":null,"signed_at":null}]}'
+        content: '{"data":[{"id":1,"filename":"faker9ZBJaf","signature_status":"Signed","signed_by":null,"signed_at":null},{"id":2,"filename":"fakerqQZUAF","signature_status":"Not necessary","signed_by":null,"signed_at":null}]}'
         headers: []
         description: ''
         custom: []
@@ -38,7 +38,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 4fVdecPhkE36a6DbZv85g1a'
+      - 'Bearer d6EaD6PbvgZkV1f3e4ac85h'
     controller: null
     method: null
     route: null
@@ -67,7 +67,7 @@ endpoints:
     bodyParameters:
       document:
         name: document
-        description: 'Must be a file. Must be 102400 kilobytes.'
+        description: 'Must be a file.'
         required: true
         example: null
         type: file
@@ -80,7 +80,7 @@ endpoints:
     responses:
       -
         status: 200
-        content: '{"data":{"id":60,"filename":"fakerAFehde","signature_status":"Signed","signed_by":null,"signed_at":null}}'
+        content: '{"data":{"id":3,"filename":"fakerulIV1F","signature_status":"Signed","signed_by":null,"signed_at":null}}'
         headers: []
         description: ''
         custom: []
@@ -88,7 +88,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer PEvZ6185a3DhVg6af4bedkc'
+      - 'Bearer Dhb1E5Zv4f6gP8dVeakac63'
     controller: null
     method: null
     route: null
@@ -115,13 +115,13 @@ endpoints:
         name: id
         description: 'The ID of the document.'
         required: true
-        example: 1
+        example: 4
         type: integer
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanUrlParameters:
-      id: 1
+      id: 4
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -141,7 +141,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer aV14hcZk6bg8eEdaDfvP653'
+      - 'Bearer 8vegVfhE6kacdZ5Db631a4P'
     controller: null
     method: null
     route: null

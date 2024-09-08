@@ -28,7 +28,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: jgutkowski@example.net
+        example: lhayes@example.org
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -37,14 +37,14 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: nihil
+        example: dolorum
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      email: jgutkowski@example.net
-      password: nihil
+      email: lhayes@example.org
+      password: dolorum
     fileParameters: []
     responses:
       -
@@ -96,7 +96,7 @@ endpoints:
         name: name
         description: ''
         required: true
-        example: sed
+        example: qui
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -105,7 +105,7 @@ endpoints:
         name: email
         description: ''
         required: true
-        example: braxton.shanahan@example.org
+        example: trevor71@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -114,7 +114,7 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: 'K/~F_\VQ7|\$d{VX,0'
+        example: "'k4sp_cWp4$E7"
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -123,21 +123,21 @@ endpoints:
         name: password_confirmation
         description: ''
         required: true
-        example: voluptatem
+        example: tenetur
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      name: sed
-      email: braxton.shanahan@example.org
-      password: 'K/~F_\VQ7|\$d{VX,0'
-      password_confirmation: voluptatem
+      name: qui
+      email: trevor71@example.com
+      password: "'k4sp_cWp4$E7"
+      password_confirmation: tenetur
     fileParameters: []
     responses:
       -
         status: 200
-        content: '{"data":{"id":125,"name":"Rasheed Stehr","email":"lydia54@example.com"}}'
+        content: '{"data":{"id":1,"name":"Dell Balistreri","email":"mcglynn.vilma@example.org"}}'
         headers: []
         description: ''
         custom: []

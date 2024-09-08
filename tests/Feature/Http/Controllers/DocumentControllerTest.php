@@ -14,7 +14,7 @@ class DocumentControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_a_user_can_upload_a_document(): void
+    public function test_a_user_can_upload_a_pdf(): void
     {
         // Create a fake user for authentication.
         $user = User::factory()->create();
@@ -41,7 +41,7 @@ class DocumentControllerTest extends TestCase
                 ],
             ]);
 
-        // Assert the storage has the file.
+        // Assert the file is stored.
         Storage::assertExists(sprintf('users/%d/documents/%s', $user->id, $document->hashName()));
 
         // Assert the database has a record.
@@ -51,5 +51,36 @@ class DocumentControllerTest extends TestCase
             'filepath' => sprintf('users/%d/documents/%s', $user->id, $document->hashName()),
             'signature_status' => Document::SIGNATURE_NOT_NECESSARY,
         ]);
+    }
+
+    public function test_a_user_cannot_upload_a_non_pdf_file(): void
+    {
+        // Create a fake user for authentication.
+        $user = User::factory()->create();
+        $this->actingAs($user, 'web');
+
+        // Fake the storage and create a fake .exe file.
+        Storage::fake();
+        $document = UploadedFile::fake()->image('document.exe');
+
+        // Make a request to the api endpoint and assert that the request fails.
+        $this->postJson(
+            uri: 'api/documents',
+            data: [
+                'document' => $document,
+            ],
+        )->assertUnprocessable()
+            ->assertExactJsonStructure([
+                'message',
+                'errors' => [
+                    'document',
+                ],
+            ]);
+
+        // Assert the file is not stored.
+        Storage::assertMissing(sprintf('users/%d/documents/%s', $user->id, $document->hashName()));
+
+        // Assert the database does not have a record.
+        $this->assertDatabaseEmpty('documents');
     }
 }

@@ -34,7 +34,7 @@ php artisan migrate
 # Check if a certificate to sign the signatures exists.
 if [ ! -f storage/app/certificate.crt ]; then
     # If not, create one.
-    openssl req -x509 -nodes -days 365000 -newkey rsa:1024 -keyout storage/app/certificate.crt -out storage/app/certificate.crt -subj "/C=/ST=/L=/O=${APP_NAME}/OU=/CN=${APP_URL}"
+    openssl req -x509 -nodes -days 365000 -newkey rsa:1024 -keyout storage/app/certificate.crt -out storage/app/certificate.crt -subj "/C=/ST=/L=/O=$APP_NAME/OU=/CN=$APP_URL"
 fi
 
 # Check if .env.testing file exists.

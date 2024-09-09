@@ -14,13 +14,13 @@ Open bash/terminal/command line tool and run the commands below to test the appl
 1. `cd heartpace-basic-e-signature-api`
 1. `cp .env.example .env`
 1. `cp .env.example .env.testing`
-1. `docker-compose up -d`
+1. `docker-compose up`
 
 Visit [http://localhost/docs](http://localhost/docs) to view the API documentation.
 
 ## Run the tests
 
-Run `docker-compose exec laravel php artisan test` command in the same bash/terminal/command line tool to run test the application.
+The `docker-compose up` command runs the tests before starting the application. Run `docker-compose exec laravel php artisan test` command in another bash/terminal/command line tool to test the application by yourself.
 
 Below tests are implemented in the application.
 

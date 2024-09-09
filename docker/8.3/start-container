@@ -19,7 +19,11 @@ chmod -R ugo+rw /.composer
 if [ ! -f .env ]; then
     # If not, copy .env.example to .env
     cp .env.example .env
-    # Generate APP_KEY
+fi
+
+# Check if the APP_KEY environment variable is set and not empty.
+if [ -z "$APP_KEY" ]; then
+    # if empty, set a value.
     php artisan key:generate
 fi
 
@@ -47,6 +51,7 @@ if [ ! -f .env.testing ]; then
 fi
 
 # Run database migrations in the testing environment and run the tests.
+php artisan key:generate --env=testing
 php artisan migrate --env=testing
 php artisan test
 

@@ -5,6 +5,7 @@ services:
             dockerfile: Dockerfile
             args:
                 WWWGROUP: "${WWWGROUP:-1000}"
+                APP_KEY: "${APP_KEY}"
         image: hasanta-laravel/app
         extra_hosts:
             - "host.docker.internal:host-gateway"

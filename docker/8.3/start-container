@@ -15,6 +15,41 @@ fi
 
 chmod -R ugo+rw /.composer
 
+# Check if .env file exists.
+if [ ! -f .env ]; then
+    # If not, copy .env.example to .env
+    cp .env.example .env
+    # Generate APP_KEY
+    php artisan key:generate
+fi
+
+# Check if composer.json has been updated or if composer.lock does not exist
+if [ ! -f composer.lock ] || [ composer.json -nt composer.lock ]; then
+    # composer.json has been updated or composer.lock is missing. Run composer install
+    composer install
+fi
+
+# Run database migrations.
+php artisan migrate
+
+# Check if a certificate to sign the signatures exists.
+if [ ! -f storage/app/certificate.crt ]; then
+    # If not, create one.
+    openssl req -x509 -nodes -days 365000 -newkey rsa:1024 -keyout storage/app/certificate.crt -out storage/app/certificate.crt
+fi
+
+# Check if .env.testing file exists.
+if [ ! -f .env.testing ]; then
+    # If not, copy .env.example to .env.testing
+    cp .env.example .env.testing
+    # Generate APP_KEY
+    php artisan key:generate --env=testing
+fi
+
+# Run database migrations in the testing environment and run the tests.
+php artisan migrate --env=testing
+php artisan test
+
 if [ $# -gt 0 ]; then
     if [ "$SUPERVISOR_PHP_USER" = "root" ]; then
         exec "$@"

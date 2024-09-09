@@ -12,6 +12,8 @@ Open bash/terminal/command line tool and run the commands below to test the appl
 
 1. `git clone git@github.com:hsumudupriya/heartpace-basic-e-signature-api.git`
 1. `cd heartpace-basic-e-signature-api`
+1. `cp .env.example .env`
+1. `cp .env.example .env.testing`
 1. `docker-compose up -d`
 
 Visit [http://localhost/docs](http://localhost/docs) to view the API documentation.

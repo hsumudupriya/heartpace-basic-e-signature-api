@@ -27,13 +27,7 @@ if [ -z "$APP_KEY" ]; then
     php artisan key:generate
 fi
 
-# Check if composer.json has been updated or if composer.lock does not exist
-if [ ! -f composer.lock ] || [ composer.json -nt composer.lock ]; then
-    # composer.json has been updated or composer.lock is missing. Run composer install
-    composer install
-fi
-
-# Run database migrations.
+composer install
 php artisan migrate
 
 # Check if a certificate to sign the signatures exists.

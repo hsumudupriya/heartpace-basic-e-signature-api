@@ -21,19 +21,20 @@ if [ ! -f .env ]; then
     cp .env.example .env
 fi
 
+composer install
+
 # Check if the APP_KEY environment variable is set and not empty.
 if [ -z "$APP_KEY" ]; then
     # if empty, set a value.
     php artisan key:generate
 fi
 
-composer install
 php artisan migrate
 
 # Check if a certificate to sign the signatures exists.
 if [ ! -f storage/app/certificate.crt ]; then
     # If not, create one.
-    openssl req -x509 -nodes -days 365000 -newkey rsa:1024 -keyout storage/app/certificate.crt -out storage/app/certificate.crt
+    openssl req -x509 -nodes -days 365000 -newkey rsa:1024 -keyout storage/app/certificate.crt -out storage/app/certificate.crt -subj "/C=/ST=/L=/O=${APP_NAME}/OU=/CN=${APP_URL}"
 fi
 
 # Check if .env.testing file exists.

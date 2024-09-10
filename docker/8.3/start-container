@@ -21,14 +21,16 @@ if [ ! -f .env ]; then
     cp .env.example .env
 fi
 
+# Install the dependencies.
 composer install
 
 # Check if the APP_KEY environment variable is set and not empty.
 if [ -z "$APP_KEY" ]; then
-    # if empty, set a value.
+    # if empty, generate.
     php artisan key:generate
 fi
 
+# Run migrations to update the database.
 php artisan migrate
 
 # Check if a certificate to sign the signatures exists.
@@ -41,13 +43,14 @@ fi
 if [ ! -f .env.testing ]; then
     # If not, copy .env.example to .env.testing
     cp .env.example .env.testing
-    # Generate APP_KEY
-    php artisan key:generate --env=testing
 fi
 
-# Run database migrations in the testing environment and run the tests.
+# Setup the testing environment and run the tests.
+# Generate the APP_KEY
 php artisan key:generate --env=testing
+# Run migrations to update the testing database.
 php artisan migrate --env=testing
+# Run the tests.
 php artisan test
 
 if [ $# -gt 0 ]; then

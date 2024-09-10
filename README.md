@@ -37,9 +37,13 @@ The below tests are implemented in the application.
 
 ## How to use the API
 
+### Demo video
+
+Watch my [demo video](https://youtu.be/NMwKWW-5wXs) on how to use this application. Or else, you can follow the steps below.
+
 ### Register a new user
 
-1. visit [http://localhost/docs](http://localhost/docs) to view the API documentation.
+1. Visit [http://localhost/docs](http://localhost/docs) to view the API documentation.
 1. Go to Authentication > Register from the left-hand menu.
 1. Click on the "Try it out" button.
 1. In Body Parameters, enter values for name, email, password, and password confirmation.

@@ -4,7 +4,7 @@ This Laravel application is developed by [Hasanta Sumudupriya](https://www.linke
 
 ## System requirements
 
-This application utilizes Docker and Laravel Sail to run in development environments. Download and install Docker using this [link](https://docs.docker.com/get-started/get-docker/) to run this application easily.
+This application utilizes Docker to run in development environments. Download and install Docker using this [link](https://docs.docker.com/get-started/get-docker/) to run this application easily.
 
 ## Run the application.
 

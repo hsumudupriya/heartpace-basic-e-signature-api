@@ -31,7 +31,7 @@ return [
     /**
      * Should certify the document signature with certificate
      */
-    'certify_documents' => true,
+    'certify_documents' => false,
 
     /**
      * Certificate path

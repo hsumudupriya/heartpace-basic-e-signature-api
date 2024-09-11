@@ -39,7 +39,7 @@ The below tests are implemented in the application.
 
 ### Demo video
 
-Watch my [demo video](https://youtu.be/NMwKWW-5wXs) on how to use this application. Or else, you can follow the steps below.
+Watch my [demo video](https://youtu.be/gA4ytAXQUZo) on how to use this application. Or else, you can follow the steps below.
 
 ### Register a new user
 

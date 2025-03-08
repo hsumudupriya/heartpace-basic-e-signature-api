@@ -1,6 +1,6 @@
 ## About
 
-This Laravel application is developed by [Hasanta Sumudupriya](https://www.linkedin.com/in/hsumudupriya) as a technical task for Heartpace. The objective of the application is to provide a basic e-signature API that allows users to e-sign documents.
+The objective of this application is to provide a basic e-signature API that allows users to e-sign documents.
 
 ## System requirements
 
